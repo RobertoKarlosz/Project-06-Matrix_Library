@@ -77,14 +77,18 @@ public:
         return res;
     }
 
-    Matrix<T> operator*(Matrix<T>& m) {
-        assert(cols == m.getRows());
-        Matrix<T> res(rows, cols);
-        for(int i = 0; i < rows*cols; i++) {
-            res.at(i) *= m.at(i);
-        }
-        return res;
-    }
+    Matrix<T> operator*(const Matrix<T>& m) const {
+		assert(cols == m.getRows());
+		Matrix<T> res(rows, m.getCols);
+		for (int row = 0; row < res.getRows(); row++) {
+			for (int col = 0; col < res.getCols; col++) {
+				for (int k = 0; k < colums; k++) {
+					res.at(row, col) += (at(row, k) * m.at(k, col));
+				}
+			}
+		}
+		return res;
+	}
 
     void operator+=(Matrix<T>& m) {
         assert(rows == m.getRows() && cols == m.getCols());

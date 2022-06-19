@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <iomanip>
 
 template <typename T>
 class Matrix {
@@ -104,8 +105,40 @@ public:
         }
     }
 
+    //************************************
     // Special operands
 
-    Matrix<T> transpose() {}
-    Matrix<T> multiplyElements() {}
+    Matrix<T> transpose() {
+        Matrix<T> res(cols, rows);
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                res.at(row, col) = at(col, row);
+            }
+        }
+        return res;
+    }
+
+    Matrix<T> multiplyElements() {
+        assert(cols == m.getRows());
+        Matrix<T> res(rows, cols);
+        for(int i = 0; i < rows*cols; i++) {
+            res.at(i) *= m.at(i);
+        }
+        return res;
+    }
 };
+
+//******************************
+// Global inserter for Matrix class
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Matrix<T>& m) {
+    for(int row = 0; row < m.getRows(); row++) {
+        os << "[ ";
+        for(int col = 0; col < m.getCols(); col++) {
+            os << std::setw(10) << m.at(row, col) << " ";
+        }
+        os << "]\n";
+    }
+    return os;
+}

@@ -17,6 +17,9 @@ class Matrix {
     size-t cols;
     std::vector<T> values;
 public:
+    //***********************************
+    // Public constructors
+    
     Matrix(size_t = 1 rows, size_t cols = 1)
         : rows(rows),
         cols(cols),
@@ -27,6 +30,7 @@ public:
         cols(cols),
         values(vals) {}
 
+    //************************************
     // Getters
 
     size_t getRows() { return rows; }
